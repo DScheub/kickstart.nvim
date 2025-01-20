@@ -114,9 +114,9 @@ vim.opt.showmode = false
 --  Schedule the setting after `UiEnter` because it can increase startup-time.
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
-vim.schedule(function()
-  vim.opt.clipboard = 'unnamedplus'
-end)
+--vim.schedule(function()
+  --vim.opt.clipboard = 'unnamedplus'
+--end)
 
 -- Enable break indent
 vim.opt.breakindent = true
@@ -189,6 +189,11 @@ vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right win
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
+-- Custom commands
+vim.keymap.set("n", "<leader>ps", [[:s/\<\(.*\)/print(f'{\1.shape=}')/g<CR>:noh<CR>]], {noremap = true})
+vim.keymap.set("n", "<leader>pf", [[:s/\<\(.*\)/print(f'{\1=}')/g<CR>:noh<CR>]], {noremap = true})
+vim.keymap.set("n", "<leader>su", [[:%s/\<<C-r><C-w>\>/]], {noremap = true})
+
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
@@ -242,18 +247,18 @@ require('lazy').setup({
   --    require('gitsigns').setup({ ... })
   --
   -- See `:help gitsigns` to understand what the configuration keys do
-  { -- Adds git related signs to the gutter, as well as utilities for managing changes
-    'lewis6991/gitsigns.nvim',
-    opts = {
-      signs = {
-        add = { text = '+' },
-        change = { text = '~' },
-        delete = { text = '_' },
-        topdelete = { text = '‾' },
-        changedelete = { text = '~' },
-      },
-    },
-  },
+  --{ -- Adds git related signs to the gutter, as well as utilities for managing changes
+    --'lewis6991/gitsigns.nvim',
+    --opts = {
+      --signs = {
+        --add = { text = '+' },
+        --change = { text = '~' },
+        --delete = { text = '_' },
+        --topdelete = { text = '‾' },
+        --changedelete = { text = '~' },
+      --},
+    --},
+  --},
 
   -- NOTE: Plugins can also be configured to run Lua code when they are loaded.
   --
@@ -269,62 +274,62 @@ require('lazy').setup({
   -- Then, because we use the `opts` key (recommended), the configuration runs
   -- after the plugin has been loaded as `require(MODULE).setup(opts)`.
 
-  { -- Useful plugin to show you pending keybinds.
-    'folke/which-key.nvim',
-    event = 'VimEnter', -- Sets the loading event to 'VimEnter'
-    opts = {
-      -- delay between pressing a key and opening which-key (milliseconds)
-      -- this setting is independent of vim.opt.timeoutlen
-      delay = 0,
-      icons = {
-        -- set icon mappings to true if you have a Nerd Font
-        mappings = vim.g.have_nerd_font,
-        -- If you are using a Nerd Font: set icons.keys to an empty table which will use the
-        -- default which-key.nvim defined Nerd Font icons, otherwise define a string table
-        keys = vim.g.have_nerd_font and {} or {
-          Up = '<Up> ',
-          Down = '<Down> ',
-          Left = '<Left> ',
-          Right = '<Right> ',
-          C = '<C-…> ',
-          M = '<M-…> ',
-          D = '<D-…> ',
-          S = '<S-…> ',
-          CR = '<CR> ',
-          Esc = '<Esc> ',
-          ScrollWheelDown = '<ScrollWheelDown> ',
-          ScrollWheelUp = '<ScrollWheelUp> ',
-          NL = '<NL> ',
-          BS = '<BS> ',
-          Space = '<Space> ',
-          Tab = '<Tab> ',
-          F1 = '<F1>',
-          F2 = '<F2>',
-          F3 = '<F3>',
-          F4 = '<F4>',
-          F5 = '<F5>',
-          F6 = '<F6>',
-          F7 = '<F7>',
-          F8 = '<F8>',
-          F9 = '<F9>',
-          F10 = '<F10>',
-          F11 = '<F11>',
-          F12 = '<F12>',
-        },
-      },
+  --{ -- Useful plugin to show you pending keybinds.
+    --'folke/which-key.nvim',
+    --event = 'VimEnter', -- Sets the loading event to 'VimEnter'
+    --opts = {
+      ---- delay between pressing a key and opening which-key (milliseconds)
+      ---- this setting is independent of vim.opt.timeoutlen
+      --delay = 0,
+      --icons = {
+        ---- set icon mappings to true if you have a Nerd Font
+        --mappings = vim.g.have_nerd_font,
+        ---- If you are using a Nerd Font: set icons.keys to an empty table which will use the
+        ---- default which-key.nvim defined Nerd Font icons, otherwise define a string table
+        --keys = vim.g.have_nerd_font and {} or {
+          --Up = '<Up> ',
+          --Down = '<Down> ',
+          --Left = '<Left> ',
+          --Right = '<Right> ',
+          --C = '<C-…> ',
+          --M = '<M-…> ',
+          --D = '<D-…> ',
+          --S = '<S-…> ',
+          --CR = '<CR> ',
+          --Esc = '<Esc> ',
+          --ScrollWheelDown = '<ScrollWheelDown> ',
+          --ScrollWheelUp = '<ScrollWheelUp> ',
+          --NL = '<NL> ',
+          --BS = '<BS> ',
+          --Space = '<Space> ',
+          --Tab = '<Tab> ',
+          --F1 = '<F1>',
+          --F2 = '<F2>',
+          --F3 = '<F3>',
+          --F4 = '<F4>',
+          --F5 = '<F5>',
+          --F6 = '<F6>',
+          --F7 = '<F7>',
+          --F8 = '<F8>',
+          --F9 = '<F9>',
+          --F10 = '<F10>',
+          --F11 = '<F11>',
+          --F12 = '<F12>',
+        --},
+      --},
 
-      -- Document existing key chains
-      spec = {
-        { '<leader>c', group = '[C]ode', mode = { 'n', 'x' } },
-        { '<leader>d', group = '[D]ocument' },
-        { '<leader>r', group = '[R]ename' },
-        { '<leader>s', group = '[S]earch' },
-        { '<leader>w', group = '[W]orkspace' },
-        { '<leader>t', group = '[T]oggle' },
-        { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
-      },
-    },
-  },
+      ---- Document existing key chains
+      --spec = {
+        --{ '<leader>c', group = '[C]ode', mode = { 'n', 'x' } },
+        --{ '<leader>d', group = '[D]ocument' },
+        --{ '<leader>r', group = '[R]ename' },
+        --{ '<leader>s', group = '[S]earch' },
+        --{ '<leader>w', group = '[W]orkspace' },
+        --{ '<leader>t', group = '[T]oggle' },
+        --{ '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
+      --},
+    --},
+  --},
 
   -- NOTE: Plugins can specify dependencies.
   --
@@ -681,8 +686,8 @@ require('lazy').setup({
 
   { -- Autoformat
     'stevearc/conform.nvim',
-    event = { 'BufWritePre' },
-    cmd = { 'ConformInfo' },
+    --event = { 'BufWritePre' },
+    --cmd = { 'ConformInfo' },
     keys = {
       {
         '<leader>f',
@@ -695,26 +700,26 @@ require('lazy').setup({
     },
     opts = {
       notify_on_error = false,
-      format_on_save = function(bufnr)
-        -- Disable "format_on_save lsp_fallback" for languages that don't
-        -- have a well standardized coding style. You can add additional
-        -- languages here or re-enable it for the disabled ones.
-        local disable_filetypes = { c = true, cpp = true }
-        local lsp_format_opt
-        if disable_filetypes[vim.bo[bufnr].filetype] then
-          lsp_format_opt = 'never'
-        else
-          lsp_format_opt = 'fallback'
-        end
-        return {
-          timeout_ms = 500,
-          lsp_format = lsp_format_opt,
-        }
-      end,
+      --format_on_save = function(bufnr)
+        ---- Disable "format_on_save lsp_fallback" for languages that don't
+        ---- have a well standardized coding style. You can add additional
+        ---- languages here or re-enable it for the disabled ones.
+        --local disable_filetypes = { c = true, cpp = true, python=true }
+        --local lsp_format_opt
+        --if disable_filetypes[vim.bo[bufnr].filetype] then
+          --lsp_format_opt = 'never'
+        --else
+          --lsp_format_opt = 'fallback'
+        --end
+        --return {
+          --timeout_ms = 500,
+          --lsp_format = lsp_format_opt,
+        --}
+      --end,
       formatters_by_ft = {
         lua = { 'stylua' },
         -- Conform can also run multiple formatters sequentially
-        -- python = { "isort", "black" },
+        python = { 'isort', 'black' },
         --
         -- You can use 'stop_after_first' to run the first available formatter from the list
         -- javascript = { "prettierd", "prettier", stop_after_first = true },
@@ -778,24 +783,24 @@ require('lazy').setup({
         -- No, but seriously. Please read `:help ins-completion`, it is really good!
         mapping = cmp.mapping.preset.insert {
           -- Select the [n]ext item
-          ['<C-n>'] = cmp.mapping.select_next_item(),
+          --['<C-n>'] = cmp.mapping.select_next_item(),
           -- Select the [p]revious item
-          ['<C-p>'] = cmp.mapping.select_prev_item(),
+          -- ['<C-p>'] = cmp.mapping.select_prev_item(),
 
           -- Scroll the documentation window [b]ack / [f]orward
-          ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-          ['<C-f>'] = cmp.mapping.scroll_docs(4),
+          -- ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+          -- ['<C-f>'] = cmp.mapping.scroll_docs(4),
 
           -- Accept ([y]es) the completion.
           --  This will auto-import if your LSP supports it.
           --  This will expand snippets if the LSP sent a snippet.
-          ['<C-y>'] = cmp.mapping.confirm { select = true },
+          -- '<C-y>'] = cmp.mapping.confirm { select = true },
 
           -- If you prefer more traditional completion keymaps,
           -- you can uncomment the following lines
-          --['<CR>'] = cmp.mapping.confirm { select = true },
-          --['<Tab>'] = cmp.mapping.select_next_item(),
-          --['<S-Tab>'] = cmp.mapping.select_prev_item(),
+          ['<CR>'] = cmp.mapping.confirm { select = true },
+          ['<Tab>'] = cmp.mapping.select_next_item(),
+          ['<S-Tab>'] = cmp.mapping.select_prev_item(),
 
           -- Manually trigger a completion from nvim-cmp.
           --  Generally you don't need this, because nvim-cmp will display
@@ -844,15 +849,17 @@ require('lazy').setup({
     --
     -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
     'folke/tokyonight.nvim',
+    --'rebelot/kanagawa.nvim',
     priority = 1000, -- Make sure to load this before all the other start plugins.
     init = function()
       -- Load the colorscheme here.
       -- Like many other themes, this one has different styles, and you could load
       -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      vim.cmd.colorscheme 'tokyonight-night'
+      --vim.cmd.colorscheme 'neovim'
+      vim.cmd.colorscheme 'tokyonight'
 
       -- You can configure highlights by doing something like:
-      vim.cmd.hi 'Comment gui=none'
+      --vim.cmd.hi 'Comment gui=none'
     end,
   },
 
@@ -902,7 +909,7 @@ require('lazy').setup({
     main = 'nvim-treesitter.configs', -- Sets main module to use for opts
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     opts = {
-      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
+      ensure_installed = { 'python', 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {
@@ -920,6 +927,15 @@ require('lazy').setup({
     --    - Incremental selection: Included, see `:help nvim-treesitter-incremental-selection-mod`
     --    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
     --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
+  },
+  {
+    'preservim/nerdcommenter',
+    vim.api.nvim_set_keymap('n', ',c', ':call nerdcommenter#Comment(0, "toggle")<CR>', { noremap = true }),
+    vim.api.nvim_set_keymap('v', ',c', ':call nerdcommenter#Comment(0, "toggle")<CR>', { noremap = true }),
+  },
+  {
+    'preservim/nerdtree',
+    vim.api.nvim_set_keymap("n", "<leader>o", ':NERDTreeToggle<CR>', {noremap = true}),
   },
 
   -- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the
